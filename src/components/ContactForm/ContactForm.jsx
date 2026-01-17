@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 import { useId } from "react";
 import { nanoid } from "nanoid";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -14,13 +16,14 @@ const initialValues = {
   number: ""
 };
 
-const ContactForm = ({updateContacts}) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
   const nameFieldId = useId();
   const numberFieldId = useId();
 
   const handleSubmit = (values, actions) => {
     values = {id: nanoid(5), ...values}
-    updateContacts(values);
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
